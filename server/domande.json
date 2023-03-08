@@ -1,0 +1,9 @@
+[
+  {"n": 0,"testo": "Cos'è un webserver?","pt": 2,"risp": [
+    {"desc": "Un software che permette di aprire un file Word", "corretta": false},
+    {"desc": "Un software che permette di aprire un file Java", "corretta": false},
+    {"desc": "Un software che gestisce le risorse e la connessione HTTP ad un server", "corretta": true},
+    {"desc": "Un pc che utilizza i file html", "corretta": false}
+  ]},
+
+]
