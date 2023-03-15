@@ -1,30 +1,25 @@
-window.onload = init;//asincrona
+window.onload = init;
+
+//window.location.href -> info sull'indirizzo attuale del sito e server
 var indirizzo = "http://localhost:63342/2223_4AI_Ripasso-main/server/";
 
-//window.location.href == da la stringa dove si trova mio progetto senza fare tanti giri
 function init(){
-    let ris = fetch(indirizzo+"domande.php",{method:'GET'});
-    //una volta acquisita la risposta
-    ris.then(async function (dati){
-        //leggiamo i dati dalla risposta e li convertiamo in Json => chiamata asincrona
+    let ris = fetch(indirizzo+"domande.php", {method:'GET'});
+    //Aspettiamo la risposta
+    ris.then(async function(dati){
+        //Leggiamo i dati della risposta e li convertiamo in json => chiamata asincrona
         let domande = await dati.json();
-        let _div = document.getElementById("idDomande");
-        for(let j in domande) {
-            let domanda = document.createElement("div");
-            domanda.innerHTML = domanda[j].testo;
-            for (let i in domande[j].risp) {
-                let radio = document.createElement("div");
-                radio.innerHTML = `
-                <input type='radio' value='${domande[j].risp[i].cod}' name='${domande[j].n}'/>
-                ${domande[j].risp[i].desc}<br\>
-                `;
-                domanda.appendChild(radio);
-            }
-            div.appendChild(domanda);
-        }
+        let div = document.getElementById("divDomande");
 
+        let domanda = document.createElement("div");
+        domanda.innerHTML = domande[0].testo;
+        let radio = document.createElement("div");
+        radio.innerHTML = `
+            <input type='radio' value='${domande[0].risp[0].cod}'  />
+            ${domande[0].risp[0].desc}<br>
+            `;
+        domanda.appendChild(radio);
+
+        div.appendChild(domanda);
     });
-
-
 }
-
