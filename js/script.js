@@ -11,15 +11,22 @@ function init(){
         let domande = await dati.json();
         let div = document.getElementById("divDomande");
 
-        let domanda = document.createElement("div");
-        domanda.innerHTML = domande[0].testo;
-        let radio = document.createElement("div");
-        radio.innerHTML = `
-            <input type='radio' value='${domande[0].risp[0].cod}'  />
-            ${domande[0].risp[0].desc}<br>
-            `;
-        domanda.appendChild(radio);
+        for(let i = 0 ;i < 4;i++)
+        {
 
-        div.appendChild(domanda);
+            let domanda = document.createElement("div");
+            domanda.innerHTML = domande[i].testo;
+            for(let j = 0;j<4;j++)
+            {
+                let radio = document.createElement("div");
+                radio.innerHTML = `
+                <input type='radio' value='${domande[i].risp[j].cod}'  />
+                ${domande[i].risp[j].desc}<br>
+                `;
+                domanda.appendChild(radio);
+            }
+            div.appendChild(domanda);
+        }
+
     });
 }
