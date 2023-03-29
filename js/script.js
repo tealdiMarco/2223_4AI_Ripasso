@@ -12,11 +12,42 @@ function init() {
     ris.then(async function (dati) {
         //Leggiamo i dati della risposta e li convertiamo in json => chiamata asincrona
         domande = await dati.json();
-        let div = document.getElementById("divDomande");
+       inserisciDomande();
 
-        for (let i in domande) {
+    });
 
-            let domanda = document.createElement("div");
+    //document.getElementById("btnControlla").addEventListener("click",controlla.bind(this,domande)); // bind passo tutto cio che voglio ad una asincrona quindi senza mettere parentesi ==> metto per primo this perchè passo pag dove si trova
+    document.getElementById("btnControlla").addEventListener("click", controlla);
+}
+
+
+// FILTRO = NULL lo valorizzo già lì se filtro ha un valore il null si toglie; parametro "precario" se non è valorizzato usa null
+function inserisciDomande(filtro = null) {
+
+    let div = document.getElementById("divDomande");
+    div.innerHTML ="";
+
+    for (let i in domande) {
+
+        let domanda = document.createElement("div");
+        if(filtro != null)
+        {
+            if(domande[i].testo.includes(filtro))
+            {
+                domanda.innerHTML = domande[i].testo;
+                for (let j in domande[i].risp) {
+                    let radio = document.createElement("div");
+                    radio.innerHTML = `
+                <input type='radio' value='${domande[i].risp[j].cod}'  name='${domande[i].n}'  />
+                ${domande[i].risp[j].desc}<br>
+                `;
+                    domanda.appendChild(radio);
+                }
+                div.appendChild(domanda);
+            }
+        }
+        else
+        {
             domanda.innerHTML = domande[i].testo;
             for (let j in domande[i].risp) {
                 let radio = document.createElement("div");
@@ -29,10 +60,9 @@ function init() {
             div.appendChild(domanda);
         }
 
-    });
 
-    //document.getElementById("btnControlla").addEventListener("click",controlla.bind(this,domande)); // bind passo tutto cio che voglio ad una asincrona quindi senza mettere parentesi ==> metto per primo this perchè passo pag dove si trova
-    document.getElementById("btnControlla").addEventListener("click", controlla);
+
+    }
 }
 
 function controlla(){
@@ -62,21 +92,21 @@ function controlla(){
 
     let d ="data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(risultati));
     let a = document.createElement("a");
-    a.setAttribute("href",d);
+    a.href = d;
     a.setAttribute("download", "risultati.json");
     a.click();
-
-
-
-
-
-
 
 }
 
 function premuto(evento){
- console.log(evento);
- stampaID(this);
+
+    // Leggiamo cio che è stato scritto nella txt
+    let filtro = evento.target.value
+
+    // Filtro le domande secondo quanto ho letto
+
+    inserisciDomande(filtro);
+     //console.log(evento.target.value);
 }
 function stampaID(elem){
     console.log(elem)
