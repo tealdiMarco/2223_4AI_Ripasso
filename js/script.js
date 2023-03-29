@@ -32,7 +32,7 @@ function inserisciDomande(filtro = null) {
         let domanda = document.createElement("div");
         if(filtro != null)
         {
-            if(domande[i].testo.toLowerCase().includes(filtro))
+            if(domande[i].testo.toLowerCase().includes(filtro.toLowerCase()))
             {
                 domanda.innerHTML = domande[i].testo;
                 for (let j in domande[i].risp) {
