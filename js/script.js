@@ -96,6 +96,18 @@ function controlla(){
     a.setAttribute("download", "risultati.json");
     a.click();
 
+    //Contatto il server e mando le risposte
+    let promise = fetch(indirizzo+"risposte.php",
+        {
+                method:'POST',
+                body: JSON.stringify(risultati)
+            });
+
+    promise.then(async  function (risp){
+       let json= await risp.json();
+       alert(json.desc);
+    });
+
 }
 
 function premuto(evento){
